@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ Accordion</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f5f7;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+  }
+
+  .faq-container {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .faq-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .faq-header h1 {
+    font-size: 1.8rem;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+  }
+
+  .faq-header p {
+    color: #777;
+    font-size: 0.95rem;
+  }
+
+  .faq-item {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+    border: 1px solid #ececec;
+  }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 18px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #222;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s;
+  }
+
+  .faq-question:hover {
+    background: #fafafa;
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #f0eefe;
+    color: #6a5af9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate(45deg);
+    background: #6a5af9;
+    color: #fff;
+  }
+
+  .faq-answer-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .faq-item.active .faq-answer-wrapper {
+    max-height: 300px;
+  }
+
+  .faq-answer {
+    padding: 0 20px 18px 20px;
+    color: #666;
+    font-size: 0.93rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 480px) {
+    .faq-header h1 { font-size: 1.5rem; }
+    .faq-question { font-size: 0.93rem; padding: 15px 16px; }
+    .faq-answer { font-size: 0.88rem; padding: 0 16px 16px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="faq-container">
+  <div class="faq-header">
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know, answered.</p>
+  </div>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>What is this product?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer-wrapper">
+        <div class="faq-answer">
+          This product helps you manage your workflow more efficiently by combining task tracking, collaboration tools, and analytics into a single, easy-to-use platform.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>How do I get started?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer-wrapper">
+        <div class="faq-answer">
+          Simply sign up for a free account, complete the onboarding setup, and you'll have access to your dashboard within minutes. No credit card required.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>Is there a free trial available?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer-wrapper">
+        <div class="faq-answer">
+          Yes, we offer a 14-day free trial with full access to all premium features. No payment information is required to start your trial.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>Can I cancel my subscription anytime?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer-wrapper">
+        <div class="faq-answer">
+          Absolutely. You can cancel your subscription at any time from your account settings, with no cancellation fees or long-term commitments required.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        <span>Do you offer customer support?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer-wrapper">
+        <div class="faq-answer">
+          Yes, our support team is available via live chat and email 24/7. Premium plans also include priority phone support.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+
+    question.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+
+      // Close all items (single-open accordion behavior)
+      faqItems.forEach(i => i.classList.remove('active'));
+
+      // Reopen clicked item if it wasn't already open
+      if (!isActive) {
+        item.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
